@@ -12,13 +12,13 @@ require 'zip/zipfilesystem'
 module Passbook
 
   class Pkpass
-    attr_accessor :translations, :json, :template_path, :pass_type_id, :wwdr_intermediate_certificate_path, :serial_number, :certificate_url, :certificate_password, :temporary_directory, :temporary_path, :manifest_url
+    attr_accessor :translations, :json, :pass_type_id, :serial_number, :temporary_directory, :temporary_path, :manifest_url, :config
 
-    def initialize(pass_type_id, serial_number, template_path)
+    def initialize(pass_type_id, serial_number)
       self.pass_type_id = pass_type_id
       self.serial_number = serial_number
-      self.template_path = template_path
       self.translations = Hash.new
+      self.config = Passbook.pass_config[self.pass_type_id]
 
       self.create_temporary_directory
       self.copy_template_to_temporary_directory
@@ -68,8 +68,8 @@ module Passbook
     end
 
     def copy_template_to_temporary_directory
-      puts "copying from #{self.template_path} to #{self.temporary_directory}"
-      FileUtils.cp_r(self.template_path, self.temporary_directory)
+      puts "copying from #{self.config['template_path']} to #{self.temporary_directory}"
+      FileUtils.cp_r(self.config['template_path'], self.temporary_directory)
     end
 
     def write_translation_strings
@@ -124,8 +124,8 @@ module Passbook
     def sign_manifest
       puts "Signing the manifest"
       # Import the certificate
-      p12_certificate = OpenSSL::PKCS12::new(File.read(self.certificate_url), self.certificate_password)
-      wwdr_certificate = OpenSSL::X509::Certificate.new(File.read(self.wwdr_intermediate_certificate_path))
+      p12_certificate = OpenSSL::PKCS12::new(File.read(config['cert_path']), config['cert_password'])
+      wwdr_certificate = OpenSSL::X509::Certificate.new(File.read(Passbook.wwdr_intermediate_certificate_path))
 
       # Sign the data
       flag = OpenSSL::PKCS7::BINARY|OpenSSL::PKCS7::DETACHED
