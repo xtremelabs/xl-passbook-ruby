@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = "Passbook integration for Ruby projects"
   s.summary = s.description
   s.email = 'andrei.dinin@xtremelabs.com'
-  s.files = ['README.txt', 'lib/passbook.rb', 'lib/passbook/pk_pass.rb']
+  s.files = ['README.txt', 'lib/passbook.rb', 'lib/passbook/config.rb', 'lib/passbook/pk_pass.rb']
   s.homepage = 'http://www.xtremelabs.com'
   s.has_rdoc = false
   s.rubyforge_project = 'xl-passbook-ruby'
