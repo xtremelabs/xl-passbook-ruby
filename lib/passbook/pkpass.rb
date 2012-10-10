@@ -79,6 +79,7 @@ module Passbook
           z.print content
         end
       end
+      stringio.set_encoding "binary"
       stringio.rewind
       stringio
       # stringio.sysread
