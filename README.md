@@ -6,8 +6,11 @@ The management of templates and all the other data is done in-memory. This gem d
 
 Usage
 -----
-1. gem 'passbook-ruby'
+1. Install
 -
+* gem 'passbook-ruby'
+* bundle
+
 2. P12 certificate
 -
 Apple has a step-by-step for this [HERE].
@@ -24,8 +27,8 @@ Alternatively, you can follow my steps:
 
 3. WWDR Certificate
 -
-* Download  http://developer.apple.com/certificationauthority/AppleWWDRCA.cer
-* Double-click to install.
+* Download http://developer.apple.com/certificationauthority/AppleWWDRCA.cer
+* Double-click to install
 * In the "Keychain Access" tool right-click on "Apple Worldwide Developer Relations Certification Authority" and click on Export "Apple....
 * Change "File Format" to "Privacy Enhanced Mail (.pem)" and save it (preferably in Rails.root/data/certificates/)
 
