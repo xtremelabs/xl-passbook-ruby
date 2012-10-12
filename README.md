@@ -8,9 +8,10 @@ Usage
 -----
 1. Install
 -
-* gem 'passbook-ruby'
-* bundle
-
+```
+gem 'passbook-ruby'
+bundle
+```
 2. P12 certificate
 -
 Apple has a step-by-step for this [HERE].
@@ -24,16 +25,33 @@ Alternatively, you can follow my steps:
 * Once you <b>download</b> the pass.cer, double-click to <b>install</b>
 * In the "Keychain Access" tool <b>right-click</b> on Pass Type ID: <you.pass.id> and click <b>"Export "Pass Type .....""</b>
 * Change "File Format" to "Personal Information Exchange(.p12)" and <b>save</b> (preferably in Rails.root/data/certificates/)
+* The password you enter during the saving process will go into the initializer (step 4)
 
 3. WWDR Certificate
 -
-* Download http://developer.apple.com/certificationauthority/AppleWWDRCA.cer
-* Double-click to install
-* In the "Keychain Access" tool right-click on "Apple Worldwide Developer Relations Certification Authority" and click on Export "Apple....
-* Change "File Format" to "Privacy Enhanced Mail (.pem)" and save it (preferably in Rails.root/data/certificates/)
+* <b>Download</b> http://developer.apple.com/certificationauthority/AppleWWDRCA.cer
+* Double-click to <b>install</b>
+* In the "Keychain Access" tool <b>right-click</b> on "Apple Worldwide Developer Relations Certification Authority" and click on <b>Export "Apple....</b>
+* Change "File Format" to "Privacy Enhanced Mail (.pem)" and <b>save</b> it (preferably in Rails.root/data/certificates/)
 
 4. Run generator
 -
+All the <b>parameters are optional</b>. You can just edit the initializer later
+```
+   rails g passbook:config [pass_type_id] [template_path] [cert_path] [cert_password] [wwdr_certificate_path]
+```
+that will create an initializer passbook-ruby.rb in config/initializers/ that look like the following (by default):
+```
+Passbook::Config.instance.configure do |passbook|
+  passbook.pass_config['pass.com.acme']={
+                              "cert_path"=>'{Rails.root}/data/certificates/pass.com.acme.p12',
+                              "cert_password"=>'password',
+                              "template_path"=>'#{Rails.root}/data/templates/pass.com.acme'
+                            }
+
+  passbook.wwdr_intermediate_certificate_path= '#{Rails.root}/data/certificates/wwdr.pem'
+end
+```
 
 5. Create a template
 -
@@ -43,3 +61,7 @@ Alternatively, you can follow my steps:
   [passbook]: https://developer.apple.com/passbook/
   [iOS Provisioning Portal]: https://developer.apple.com/devcenter/ios/index.action
   [HERE]: https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/PassKit_PG/Chapters/YourFirst.html#//apple_ref/doc/uid/TP40012195-CH2-SW27
+
+
+
+
