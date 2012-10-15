@@ -1,0 +1,26 @@
+{
+  "formatVersion" : 1,
+  "passTypeIdentifier" : "pass.com.acme",
+  "serialNumber" : "werwer",
+  "teamIdentifier" : "sdfsdfsdf",
+  "webServiceURL" : "https://acme.com/passes/",
+  "authenticationToken" : "werwfdsfd",
+  "barcode" : {
+    "message" : "",
+    "format" : "PKBarcodeFormatPDF417",
+    "messageEncoding" : "iso-8859-1"
+  },
+  "organizationName" : "Acme",
+  "description" : "test",
+  "logoText" : "test",
+  "foregroundColor" : "rgb(0, 0, 0)",
+  "backgroundColor" : "rgb(0, 0, 0)",
+  "boardingPass" : {
+    "transitType" : "PKTransitTypeAir",
+    "headerFields" : [],
+    "primaryFields" : [],
+    "secondaryFields" : [],
+    "auxiliaryFields" : [],
+    "backFields" : []
+  }
+}

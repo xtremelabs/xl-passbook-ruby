@@ -11,17 +11,19 @@ describe Passbook::Pkpass do
     Passbook::Config.instance.configure do |passbook|
       template_path =  "#{Dir.pwd}/spec/data/templates"
       cert_path = "#{Dir.pwd}/spec/data/certificates"
-      passbook.pass_config["pass.cineplex.scene"]={
-                                  "cert_path"=>"#{cert_path}/pass.cineplex.scene.p12",
-                                  "cert_password"=>"interactive",
-                                  "template_path"=>"#{template_path}/pass.cineplex.scene"
+      passbook.pass_config["pass.com.acme"]={
+                                  "cert_path"=>"#{cert_path}/pass.com.acme.p12",
+                                  "cert_password"=>"test",
+                                  "template_path"=>"#{template_path}/pass.com.acme",
+                                  "p12_certificate"=>create_p12
                                 }
       passbook.wwdr_intermediate_certificate_path = "#{Dir.pwd}/spec/data/certificates/wwdr.pem"
+      passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
     end
   end
 
   before :each do
-    @pass = Passbook::Pkpass.new("pass.cineplex.scene", "test")
+    @pass = Passbook::Pkpass.new("pass.com.acme", "test")
   end
 
 
@@ -30,7 +32,7 @@ describe Passbook::Pkpass do
   end
 
   it "should make an instance of Pkpass" do
-    expect {Passbook::Pkpass.new("pass.cineplex.scene", "test")}.to_not raise_error
+    expect {Passbook::Pkpass.new("pass.com.acme", "test")}.to_not raise_error
   end
 
   it "should have the added file in zip file" do
