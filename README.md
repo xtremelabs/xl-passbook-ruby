@@ -34,7 +34,7 @@ Second certificate you need to sign a pkpass
 * In the "Keychain Access" tool <b>right-click</b> on "Apple Worldwide Developer Relations Certification Authority" and click on <b>Export "Apple....</b>
 * Change "File Format" to "Privacy Enhanced Mail (.pem)" and <b>save</b> it (preferably in Rails.root/data/certificates/)
 
-## Run generator
+### Run generator
 All the <b>parameters are optional</b>. You can just edit the initializer later
 ```
    rails g passbook:config [pass_type_id] [template_path] [cert_path] [cert_password] [wwdr_certificate_path]
@@ -52,14 +52,28 @@ Passbook::Config.instance.configure do |passbook|
 end
 ```
 
-## Create a template
-Download a sample template or create one yourself
-![Pkpass structure](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/PassKit_PG/Art/directory_structure_2x.png)
+### Create a template
+Download a sample template or create one yourself. Refer to [Pass Design and Creation] section of Apple documentation
 
+### Sign and Send
+
+```
+    serial_number= "12345"
+    pkpass = Passbook::Pkpass.new "pass.com.acme", serial_number
+    pkpass.json['authenticationToken'] = Base64.urlsafe_encode64(SecureRandom.base64(36))
+    pkpass_io = pkpass.package
+
+    send_data(pkpass_io.sysread, :type => 'application/vnd.apple.pkpass', :disposition=>'inline', :filename=>"#{serial_number}.pkpass")
+```
+
+####Thank you to contributers:
+  Dwayne Forde, Cody Veal, Gregory Chow, Vincent Lee, Hussam Sheikh, Tanzeeb Khalili
 
 
   [passbook]: https://developer.apple.com/passbook/
   [iOS Provisioning Portal]: https://developer.apple.com/devcenter/ios/index.action
   [Apple has a step-by-step]: https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/PassKit_PG/Chapters/YourFirst.html#//apple_ref/doc/uid/TP40012195-CH2-SW27
+  [Pass Design and Creation]: https://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/PassKit_PG/Chapters/Creating.html#//apple_ref/doc/uid/TP40012195-CH4-SW1
+  [Apple documentation]: https://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/PassKit_PG/Chapters/Introduction.html
 
 
