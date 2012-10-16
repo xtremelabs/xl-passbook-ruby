@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
-  s.name = "passbook"
-  s.version = "0.0.2"
+  s.name = "passbook-ruby"
+  s.version = "0.0.3"
   s.authors = ["Andrei Dinin"]
   s.date = %q[2012-09-20]
   s.description = "Passbook pkpass creation for Ruby projects"
@@ -10,6 +10,6 @@ Gem::Specification.new do |s|
   s.homepage = 'http://www.xtremelabs.com'
   s.has_rdoc = false
   s.rubyforge_project = 'xl-passbook-ruby'
-  # s.add_dependency('fileutils' )
+  s.add_dependency('rubyzip' )
   s.add_dependency('json' )
 end
