@@ -24,15 +24,16 @@ Alternatively, you can follow all of my steps:
 * Click on <b>Configure</b> button and <b>follow the instructions</b> in the wizard
 * Once you <b>download</b> the pass.cer, double-click to <b>install</b>
 * In the "Keychain Access" tool <b>right-click</b> on Pass Type ID: <you.pass.id> and click <b>"Export "Pass Type .....""</b>
-* Change "File Format" to "Personal Information Exchange(.p12)" and <b>save</b> (preferably in Rails.root/data/certificates/)
+* Change "File Format" to "Personal Information Exchange(.p12)" and <b>save</b> (preferably to Rails.root/data/certificates/)
 * The password you enter during the saving process will go into the initializer ("Run Generator" step)
 
 ### WWDR Certificate
 Second certificate you need to sign a pkpass
+
 1. <b>Download</b> http://developer.apple.com/certificationauthority/AppleWWDRCA.cer
 * Double-click to <b>install</b>
 * In the "Keychain Access" tool <b>right-click</b> on "Apple Worldwide Developer Relations Certification Authority" and click on <b>Export "Apple....</b>
-* Change "File Format" to "Privacy Enhanced Mail (.pem)" and <b>save</b> it (preferably in Rails.root/data/certificates/)
+* Change "File Format" to "Privacy Enhanced Mail (.pem)" and <b>save</b> it (preferably to Rails.root/data/certificates/)
 
 ### Run generator
 All the <b>parameters are optional</b>. You can just edit the initializer later
@@ -66,7 +67,7 @@ Download a sample template or create one yourself. Refer to [Pass Design and Cre
     send_data(pkpass_io.sysread, :type => 'application/vnd.apple.pkpass', :disposition=>'inline', :filename=>"#{serial_number}.pkpass")
 ```
 
-####Thank you to contributers:
+####Thank you for help:
   Dwayne Forde, Cody Veal, Gregory Chow, Vincent Lee, Hussam Sheikh, Tanzeeb Khalili
 
 
