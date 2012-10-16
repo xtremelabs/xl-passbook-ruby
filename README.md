@@ -78,7 +78,7 @@ send_data(
 #### Check out [FAQs] wiki section if you get in trouble
 
 ####Thank you for help:
-Dwayne Forde, Cody Veal, Gregory Chow, Vincent Lee, Hussam Sheikh, Tanzeeb Khalili
+Dwayne Forde, Cody Veal, Gregory Chow, Vincent Lee, Hussam Sheikh, Tanzeeb Khalili, Vincent Coste
 
 
   [passbook]: https://developer.apple.com/passbook/
