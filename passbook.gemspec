@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = "Passbook pkpass creation for Ruby projects"
   s.summary = s.description
   s.email = 'andrei.dinin@xtremelabs.com'
-  s.files = Dir.glob('lib/**/*') + %w(Gemfile README.md)
+  s.files = Dir.glob('lib/**/*') + %w(README.md)
   s.homepage = 'http://www.xtremelabs.com'
   s.has_rdoc = false
   s.rubyforge_project = 'xl-passbook-ruby'
