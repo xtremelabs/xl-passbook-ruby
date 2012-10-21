@@ -1,4 +1,4 @@
-require_relative '../lib/passbook'
+require_relative '../lib/passbook-ruby'
 require_relative '../lib/passbook/config'
 require_relative '../lib/passbook/pkpass'
 
