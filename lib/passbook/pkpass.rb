@@ -16,7 +16,12 @@ module Passbook
       self.config = Config.instance.pass_config[self.pass_type_id]
       raise(ArgumentError, "Could not find configuration for #{self.pass_type_id}") unless self.config
 
-      self.files = self.config['files'].dup
+      if self.config.include? :files
+        self.files = self.config['files'].dup
+      else
+        self.files = Config.instance.load_files self.config['template_path']
+      end
+
       if self.files.include? 'pass.json'
         self.json = JSON.parse(self.files['pass.json'])
       else

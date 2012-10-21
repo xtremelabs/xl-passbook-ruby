@@ -4,28 +4,32 @@ require 'singleton'
 module Passbook
   class Config
     include Singleton
-    attr_accessor :pass_config, :wwdr_intermediate_certificate_path, :wwdr_certificate
+    attr_accessor :pass_config, :wwdr_intermediate_certificate_path, :wwdr_certificate, :preload_template
 
     def configure
       self.pass_config = Hash.new unless self.pass_config
       yield self
-      read_template
+      self.preload_template ||= ::Rails.env.production? if defined? ::Rails
+      read_templates if self.preload_template
       read_certificates
     end
 
-    def read_template
+    def read_templates
       self.pass_config.each do |pass_type_id, config|
         raise(ArgumentError, "Please specify a template_path in your configuration (in initializer)") unless config['template_path']
-        unless config['files']
-          config['files'] = Hash.new
-          Dir.glob(config['template_path']+"/**/**").each do |file|
-            next if File.directory? file
-            content = File.read(file)
-            filename = Pathname.new(file).relative_path_from(Pathname.new(config['template_path']))
-            config['files'][filename.to_s]=content
-          end
-        end
+        config['files'] = load_file config['template_path'] unless config['files']
       end
+    end
+
+    def load_files path
+      files = {}
+      Dir.glob(path+"/**/**").each do |file_path|
+        next if File.directory? file_path
+        filename = Pathname.new(file_path).relative_path_from(Pathname.new(path))
+        file = File.open(file_path, "rb")
+        files[filename.to_s] = File.read(file)
+      end
+      files
     end
 
     def read_certificates
