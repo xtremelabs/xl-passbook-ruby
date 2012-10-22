@@ -1,5 +1,6 @@
 require "passbook/config"
 require "passbook/pkpass"
+require "passbook/engine"
 
 require "action_controller"
 Mime::Type.register 'application/vnd.apple.pkpass', :pkpass
