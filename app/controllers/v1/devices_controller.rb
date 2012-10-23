@@ -64,7 +64,7 @@ module V1
     def updatable
       puts "Handling updates request..."
       # Check first that the device has registered with the service
-      if Registration.wheire(:device_id => params[:device_id]).count > 0
+      if Registration.where(:device_id => params[:device_id]).count > 0
 
         # The device is registered with the service
 
