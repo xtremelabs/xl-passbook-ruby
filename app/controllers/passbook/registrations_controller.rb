@@ -1,10 +1,9 @@
-module V1
-  class DevicesController < ApplicationController
-    def register
+module Passbook
+  class RegistrationsController < ApplicationController
+    def create
       puts "Handling registration request..."
       # validate that the request is authorized to deal with the pass referenced
-      puts "#<RegistrationRequest device_id: #{params[:device_id]}, pass_type_id: #{params[:pass_type_id]}, serial_number: #{params[:serial_number]}, authentication_token: #{authentication_token},push token:#{push_token}>"
-      pass = Pass.where(:serial_number => params[:serial_number]).where(:authentication_token => authentication_token).first
+      pass = Passbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => params[:serial_number]).where(:authentication_token => authentication_token).first
       unless pass.blank?
         puts 'Pass and authentication token match.'
 
@@ -38,10 +37,11 @@ module V1
       end
     end
 
-    def unregister
+
+    def delete
       puts "Handling unregistration request..."
       puts authentication_token
-      if Pass.where(:serial_number => params[:serial_number], :authentication_token => authentication_token).first
+      if Passbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => params[:serial_number], :authentication_token => authentication_token).first
         puts 'Pass and authentication token match.'
 
         # Validate that the device has previously registered
@@ -73,15 +73,14 @@ module V1
 
         # The passesUpdatedSince param is optional for scoping the update query
         if params[:passesUpdatedSince] && params[:passesUpdatedSince] != ""
-          registered_passes = Pass.where(:serial_number => registered_serial_numbers).where('updated_at IS NULL OR updated_at >= ?', params[:passesUpdatedSince])
+          registered_passes = Passbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => registered_serial_numbers).where('updated_at IS NULL OR updated_at >= ?', params[:passesUpdatedSince])
         else
-          registered_passes = Pass.where(:serial_number => registered_serial_numbers)
+          registered_passes = Passbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => registered_serial_numbers)
         end
 
         # Are there passes that this device should recieve updates for?
         if registered_passes.count > 0
           # Found passes that could be updated for this device
-          puts "iPhone should update some passes."
           # Build the response object
           update_time = registered_passes.map(&:updated_at).max
           updatable_passes_payload = {:lastUpdated => update_time}
@@ -101,8 +100,6 @@ module V1
     private
 
     def authentication_token
-      puts "in authentication_token"
-      # puts request.env
       if request.env && request.env['HTTP_AUTHORIZATION']
         request.env['HTTP_AUTHORIZATION'].split(" ").last
       end

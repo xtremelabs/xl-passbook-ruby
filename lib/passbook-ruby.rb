@@ -14,5 +14,8 @@ ActionController::Renderers.add :pkpass do |obj, options|
 end
 
 module Passbook
+  def self.pass_type_id_to_class pass_type_id
+    Passbook::Config.instance.pass_config[pass_type_id]['class']
+  end
 end
 

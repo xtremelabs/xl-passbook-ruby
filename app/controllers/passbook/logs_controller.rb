@@ -1,4 +1,4 @@
-module V1
+module Passbook
   class LogsController < ApplicationController
 
     def log
