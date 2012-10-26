@@ -1,6 +1,6 @@
-class CreateRegistrations < ActiveRecord::Migration
+class CreatePassbookRegistrations < ActiveRecord::Migration
   def change
-    create_table :registrations do |t|
+    create_table :passbook_registrations do |t|
       t.string :uuid
       t.string :device_id
       t.string :push_token

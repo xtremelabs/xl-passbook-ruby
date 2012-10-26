@@ -7,6 +7,7 @@ module Passbook
       desc 'Create Passbook initializer'
       def create_initializer_file
         template 'initializer.rb', File.join('config', 'initializers', 'passbook.rb')
+        template 'migration.rb', File.join('db', 'migrate', "#{Time.now.strftime("%Y%m%d%H%M%S")}_create_passbook_registrations.rb")
       end
     end
   end
