@@ -1,0 +1,38 @@
+{
+  "formatVersion" : 1,
+  "passTypeIdentifier" : "<%= pass_type_id %>",
+  "serialNumber" : "12345",
+  "teamIdentifier" : "<%= team_id %>",
+  "webServiceURL" : "http://192.168.91.151:3000",
+  "authenticationToken" : "",
+  "barcode" : {
+    "message" : "34534636",
+    "format" : "PKBarcodeFormatPDF417",
+    "messageEncoding" : "iso-8859-1"
+  },
+  "organizationName" : "ACME Inc.",
+  "description" : "",
+  "logoText" : "ACME",
+  "foregroundColor" : "rgb(22, 55, 110)",
+  "backgroundColor" : "rgb(50, 91, 185)",
+  "coupon" : {
+    "headerFields" : [
+      {
+        "label" : "TEST",
+        "key" : "test",
+        "value" : "#1",
+        "changeMessage" : "Test number changed to %@."
+      }
+    ],
+    "primaryFields" : [
+      {
+        "key" : "passbook",
+        "label" : "",
+        "value" : "<%= class_name %>"
+      }
+    ],
+    "secondaryFields" : [],
+    "auxiliaryFields" : [],
+    "backFields" : []
+  }
+}

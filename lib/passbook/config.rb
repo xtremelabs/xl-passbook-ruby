@@ -40,7 +40,7 @@ module Passbook
 
     def read_p12_certificates
       pass_config.each do |pass_type_id, config|
-        raise(ArgumentError, "Please specify cert_path (certificate path) in your configuration (in initializer)") unless config['cert_path']
+        raise(ArgumentError, "Please specify cert_path (certificate path) in your configuration (in initializer)") unless config['cert_path'] && !config['cert_path'].blank?
         raise(ArgumentError, "Please specify cert_password (certificate password) in your configuration (in initializer)") unless config['cert_password']
         config['p12_certificate'] ||=  OpenSSL::PKCS12::new(File.read(config['cert_path']), config['cert_password'])
       end

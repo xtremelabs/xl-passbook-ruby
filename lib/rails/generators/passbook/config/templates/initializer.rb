@@ -13,5 +13,5 @@ Passbook::Config.instance.configure do |passbook|
   passbook.enable_routes = true
 
 
-  passbook.wwdr_intermediate_certificate_path= "<%= wwdr_certificate_path %>"
+  passbook.wwdr_intermediate_certificate_path= "<%= wwdr_certificate_path.blank? ? "#{Rails.root}/data/certificates/wwdr.pem":wwdr_certificate_path %>"
 end
