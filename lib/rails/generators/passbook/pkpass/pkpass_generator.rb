@@ -4,7 +4,6 @@ module Passbook
       source_root File.expand_path('../templates', __FILE__)
       argument :pass_type_id, type: :string, default: 'pass.com.acme', optional: true, banner: "The Pass Type ID you registered at iOS Provisioning Portal"
       argument :team_id, type: :string, optional: true, banner: "Team ID you got at the iOS Provisioning Portal when you registered the pass type id"
-      argument :template_path, type: :string, optional: true, banner: "Absolute path to the pass template"
       argument :cert_path, type: :string, optional: true, banner: "Absolute path to your pass.com.acme.p12 file"
       argument :cert_password, type: :string, default: 'password', optional: true, banner: "Password for your P12 certificate"
 

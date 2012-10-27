@@ -35,45 +35,31 @@ Second certificate you need to sign a pkpass
 * In the "Keychain Access" tool <b>right-click</b> on "Apple Worldwide Developer Relations Certification Authority" and click on <b>Export "Apple....</b>
 * Change "File Format" to "Privacy Enhanced Mail (.pem)" and <b>save</b> it (preferably to Rails.root/data/certificates/)
 
-### Run generator
+### Run generators
 All the <b>parameters are optional</b>. You can just edit the initializer later
 ```
-   rails g passbook:config [pass_type_id] [template_path] [cert_path] [cert_password] [wwdr_certificate_path]
+   rails g passbook:config [wwdr_certificate_path]
 ```
-that will create an initializer passbook.rb in config/initializers/ that look like the following (by default):
-```
-Passbook::Config.instance.configure do |passbook|
-  passbook.pass_config['pass.com.acme']={
-                              "cert_path"=>'{Rails.root}/data/certificates/pass.com.acme.p12',
-                              "cert_password"=>'password',
-                              "template_path"=>'#{Rails.root}/data/templates/pass.com.acme'
-                            }
+That creates an initializer and a migration.
+Don't forget to put the WWDR certificate into the path now, if you used the defaults.
 
-  passbook.wwdr_intermediate_certificate_path= '#{Rails.root}/data/certificates/wwdr.pem'
-end
-```
 
-### Create a template
-[Download a sample] template or create one yourself. Refer to [Pass Design and Creation] section of Apple documentation
-
-Note: Don't forget to change "passTypeIdentifier" and "[teamIdentifier]" in pass.json
-You won't be able to add the pkpass to passbook otherwise.
-
-### Sign and Send
+After that, let's create a pkpass model (ie. ticket).
+I would strongly advise specifying **model_name**, **pass_type_id** and **tead_id** at this points.
 
 ```
-serial_number= "12345"
-pkpass = Passbook::Pkpass.new "pass.com.acme", serial_number
-pkpass.json['authenticationToken'] = Base64.urlsafe_encode64(SecureRandom.base64(36))
-pkpass_io = pkpass.package
-
-send_data(
-  pkpass_io.sysread,
-  :type => 'application/vnd.apple.pkpass',
-  :disposition=>'inline',
-  :filename=>"#{serial_number}.pkpass"
-)
+   rails g passbook:pkpass [model_name] [pass_type_id] [team_id] [cert_path] [cert_password]
 ```
+This will generate a model, a migration, an initializer, a route and a sample pass (to data/templates/your_pass_type_id). Make sure to add your
+.p12 into the path now if you use the defaults.
+
+
+```
+   rails s
+```
+and go to \passes\model_name on your iphone (make sure it is in debug mode and allows http connections)
+
+
 
 #### Check out [FAQs] wiki section if you get in trouble
 

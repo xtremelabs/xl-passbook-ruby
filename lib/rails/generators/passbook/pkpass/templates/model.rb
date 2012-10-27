@@ -1,9 +1,9 @@
 class <%= class_name %> < ActiveRecord::Base
   attr_protected :serial_number, :authentication_token
   attr_accessible :card_id
-  before_create :add_authentication_token
+  before_create :set_pass_fields
 
-  def add_authentication_token
+  def set_pass_fields
     self.authentication_token = Base64.urlsafe_encode64(SecureRandom.base64(36))
     self.serial_number||= Base64.urlsafe_encode64(SecureRandom.base64(36))
   end
@@ -29,6 +29,8 @@ class <%= class_name %> < ActiveRecord::Base
   def update_json pass_json
     pass_json['authenticationToken'] = authentication_token
     pass_json['serialNumber'] = serial_number
+    #don't forget to change the URL to whatever address your server is at
+    pass_json['webServiceURL'] = "http://192.168.x.x:3000"
     #add more customization to your passbook's JSON right here
   end
 end
