@@ -1,6 +1,6 @@
 class <%= class_name %> < ActiveRecord::Base
-  #TODO WARNING: authentication_token and serial_number are subject to mass assign
-  attr_accessible :serial_number, :authentication_token, :card_id
+  attr_protected :serial_number, :authentication_token
+  attr_accessible :card_id
   before_create :add_authentication_token
 
   def add_authentication_token
@@ -11,11 +11,15 @@ class <%= class_name %> < ActiveRecord::Base
   def self.update_or_create params
     <%= plural_name.singularize %>_pass = find_by_card_id params[:card_id]
     <%= plural_name.singularize %>_pass ||=new
-    params.slice(*column_names.map(&:to_sym)).each do |attr, val|
+    params.slice(*attr_accessible[:default].map(&:to_sym)).each do |attr, val|
       <%= plural_name.singularize %>_pass.send :"#{attr}=", val
     end
     <%= plural_name.singularize %>_pass.save!
     <%= plural_name.singularize %>_pass
+  end
+
+  def check_for_updates
+
   end
 
   def update_pass pkpass
