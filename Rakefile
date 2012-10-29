@@ -1,23 +1,10 @@
-# -*- ruby -*-
+require 'bundler/setup'
+Bundler::GemHelper.install_tasks
 
-require 'rubygems'
-require 'hoe'
-
-# Hoe.plugin :compiler
-# Hoe.plugin :gem_prelude_sucks
-# Hoe.plugin :inline
-# Hoe.plugin :racc
-# Hoe.plugin :rcov
-# Hoe.plugin :rubyforge
-
-Hoe.spec 'Passbook' do
-  # HEY! If you fill these out in ~/.hoe_template/Rakefile.erb then
-  # you'll never have to touch them again!
-  # (delete this comment too, of course)
-
-  # developer('FIX', 'FIX@example.com')
-
-  # self.rubyforge_name = 'Passbookx' # if different than 'Passbook'
+require 'rspec/core/rake_task'
+desc "run spec tests"
+RSpec::Core::RakeTask.new('spec') do |t|
+  t.pattern = 'spec/**/*_spec.rb'
 end
 
-# vim: syntax=ruby
+task :default => :spec

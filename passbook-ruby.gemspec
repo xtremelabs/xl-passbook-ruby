@@ -9,7 +9,9 @@ Gem::Specification.new do |s|
   s.files = Dir.glob('lib/**/*') + %w(README.md)
   s.homepage = 'http://www.xtremelabs.com'
   s.has_rdoc = false
-  s.rubyforge_project = 'xl-passbook-ruby'
+  s.required_ruby_version = '>=1.9.0'
+  s.rubyforge_project = 'passbook-ruby'
   s.add_dependency('rubyzip' )
   s.add_dependency('json' )
+  s.add_development_dependency 'rspec', '>2.0'
 end
