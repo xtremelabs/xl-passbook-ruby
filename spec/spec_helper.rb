@@ -13,8 +13,8 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-
-
+require "rails"
+require "rails/test_help"
 
 require_relative '../lib/passbook-ruby'
 require_relative '../lib/passbook/config'
@@ -26,7 +26,7 @@ module Helpers
   def zip_io zip_file_io
     File.open("test.zip", 'w') do |file|
       zip_file_io.rewind
-      file.write zip_file_io.sysread
+      file.write zip_file_io.sysread.force_encoding("UTF-8")
     end
     Zip::ZipInputStream::open("test.zip")
   end
