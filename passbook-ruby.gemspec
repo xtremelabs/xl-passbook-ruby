@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "passbook-ruby"
-  s.version = "0.0.4"
+  s.version = "0.0.5"
   s.authors = ["Andrei Dinin"]
   s.date = %q[2012-09-20]
   s.description = "Passbook pkpass creation and management for Ruby projects"
