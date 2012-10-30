@@ -23,7 +23,7 @@ module Passbook
     def read_templates
       self.pass_config.each do |pass_type_id, config|
         raise(ArgumentError, "Please specify a template_path in your configuration (in initializer)") unless config['template_path']
-        config['files']||= load_file config['template_path']
+        config['files']||= load_files config['template_path']
       end
     end
 
