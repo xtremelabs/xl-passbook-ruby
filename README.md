@@ -67,6 +67,11 @@ and go to \passes\model_name on your iphone (make sure it is in debug mode and a
 Dwayne Forde, Cody Veal, Gregory Chow, Vincent Lee, Hussam Sheikh, Tanzeeb Khalili, Vincent Coste
 
 
+####Lisence
+
+Except as otherwise noted, the Passbook-Ruby gem is licensed under the [Apache License, Version 2.0]
+
+
   [passbook]: https://developer.apple.com/passbook/
   [iOS Provisioning Portal]: https://developer.apple.com/devcenter/ios/index.action
   [Apple has a step-by-step]: https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/PassKit_PG/Chapters/YourFirst.html#//apple_ref/doc/uid/TP40012195-CH2-SW27
@@ -75,3 +80,4 @@ Dwayne Forde, Cody Veal, Gregory Chow, Vincent Lee, Hussam Sheikh, Tanzeeb Khali
   [Download a sample]: https://github.com/downloads/xtremelabs/xl-passbook-ruby/pass.com.acme.zip
   [FAQs]: https://github.com/xtremelabs/xl-passbook-ruby/wiki/faqs
   [teamIdentifier]: https://github.com/xtremelabs/xl-passbook-ruby/wiki/faqs
+  [Apache License, Version 2.0]: http://www.apache.org/licenses/LICENSE-2.0.html
