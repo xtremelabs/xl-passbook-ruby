@@ -1,5 +1,7 @@
 # Passbook-Ruby
 
+[![Build Status](https://secure.travis-ci.org/xtremelabs/xl-passbook-ruby.png)](http://travis-ci.org/xtremelabs/xl-passbook-ruby)
+
 [Passbook] is an app distributed on iOS6.
 This is an implementation for management and signing of pkpasses for your Rails application.
 The management of templates and all the other data is done in-memory. This gem does not write to the filesystem. This results in a speed boost.
