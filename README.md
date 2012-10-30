@@ -51,7 +51,8 @@ I would strongly advise specifying **model_name**, **pass_type_id** and **tead_i
    rails g passbook:pkpass [model_name] [pass_type_id] [team_id] [cert_path] [cert_password]
 ```
 This will generate a model, a migration, an initializer, a route and a sample pass (to data/templates/your_pass_type_id). Make sure to add your
-.p12 into the path now if you use the defaults.
+.p12 into the path now if you use the defaults. Also, if you didn't set the password for the cert in the above command, make sure you change the default to
+your password in config/initializers/passbook_#{model_name}.rb.
 
 
 ```
