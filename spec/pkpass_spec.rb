@@ -28,6 +28,7 @@ describe Passbook::Pkpass do
   before :all do
     Passbook::Config.instance.configure do |passbook|
       passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
+      passbook.wwdr_intermediate_certificate_path = "#{Dir.pwd}/spec/data/certificates/wwdr.pem"
     end
 
     Passbook::Config.instance.add_pkpass do |passbook|
@@ -39,8 +40,6 @@ describe Passbook::Pkpass do
                                   "template_path"=>"#{template_path}/pass.com.acme",
                                   "p12_certificate"=>create_p12
                                 }
-      passbook.wwdr_intermediate_certificate_path = "#{Dir.pwd}/spec/data/certificates/wwdr.pem"
-      passbook.wwdr_certificate = OpenSSL::X509::Certificate.new
     end
   end
 
