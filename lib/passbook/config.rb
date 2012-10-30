@@ -65,7 +65,7 @@ module Passbook
     end
 
     def read_wwdr_certificate
-      raise(ArgumentError, "Please specify the WWDR Intermediate certificate in your initializer") unless self.wwdr_intermediate_certificate_path
+      # raise(ArgumentError, "Please specify the WWDR Intermediate certificate in your initializer") unless self.wwdr_intermediate_certificate_path
       self.wwdr_certificate||= OpenSSL::X509::Certificate.new(File.read(self.wwdr_intermediate_certificate_path))
     end
 

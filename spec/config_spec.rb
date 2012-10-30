@@ -19,9 +19,9 @@
 require 'spec_helper'
 
 describe Passbook::Config do
-  it "should throw ArgumentError because wwdr_intermediate_certificate_path is missing"  do
-    expect {Passbook::Config.instance.configure {}}.to raise_error(ArgumentError)
-  end
+  # it "should throw ArgumentError because wwdr_intermediate_certificate_path is missing"  do
+  #   expect {Passbook::Config.instance.configure {}}.to raise_error(ArgumentError)
+  # end
 
   it "should throw ArgumentError because cert_path is missing" do
     expect{ Passbook::Config.instance.add_pkpass do |passbook|
