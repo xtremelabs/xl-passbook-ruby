@@ -55,6 +55,7 @@ This will generate a model, a migration, an initializer, a route and a sample pa
 
 
 ```
+   rake db:migrate
    rails s
 ```
 and go to \passes\model_name on your iphone (make sure it is in debug mode and allows http connections)
