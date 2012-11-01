@@ -6,6 +6,9 @@
 This is an implementation for management and signing of pkpasses for your Rails application.
 The management of templates and all the other data is done in-memory. This gem does not write to the filesystem. This results in a speed boost.
 
+Quick Start Video:
+http://www.youtube.com/watch?v=GeWFk1FvEKc
+
 ## Usage
 
 ### Install
