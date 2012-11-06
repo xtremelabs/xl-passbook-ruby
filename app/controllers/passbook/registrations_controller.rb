@@ -59,6 +59,9 @@ module Passbook
                               :push_token => push_token,
                               :serial_number => params[:serial_number])
 
+          # spawn an event for registration creation
+          pass.register_handler if pass.respond_to? :register_handler
+
           # Return a 201 CREATED status
           # status 201
           render :json => {}, :status => 201
@@ -90,6 +93,10 @@ module Passbook
         registration = Registration.find_by_uuid(uuid)
         unless registration.blank?
           Registration.delete registration.id
+
+          # spawn an event for unregistration event
+          pass.unregister_handler if pass.respond_to? :unregister_handler
+
           render :json => {}, :status => 200
         else
           puts 'Registration does not exist.'
