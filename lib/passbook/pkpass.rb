@@ -66,8 +66,11 @@ module Passbook
       self.sign_manifest
       self.compress_pass_file
     end
-
+    
     def write_json
+      # Allow integer serial number values without crashing Passbook:
+      self.json["serialNumber"] = self.serial_number.to_s
+      
       self.files['pass.json'] = JSON.pretty_generate(self.json)
     end
 
