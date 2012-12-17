@@ -38,6 +38,7 @@ module Passbook
       read_p12_certificates
     end
 
+    # @private
     def read_templates
       self.pass_config.each do |pass_type_id, config|
         raise(ArgumentError, "Please specify a template_path in your configuration (in initializer)") unless config['template_path']
@@ -56,6 +57,7 @@ module Passbook
       files
     end
 
+    # @private
     def read_p12_certificates
       pass_config.each do |pass_type_id, config|
         raise(ArgumentError, "Please specify cert_path (certificate path) in your configuration (in initializer)") unless config['cert_path'] && !config['cert_path'].blank?
@@ -64,6 +66,7 @@ module Passbook
       end
     end
 
+    # @private
     def read_wwdr_certificate
       # raise(ArgumentError, "Please specify the WWDR Intermediate certificate in your initializer") unless self.wwdr_intermediate_certificate_path
       self.wwdr_certificate||= OpenSSL::X509::Certificate.new(File.read(self.wwdr_intermediate_certificate_path))

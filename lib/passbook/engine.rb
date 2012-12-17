@@ -14,9 +14,10 @@
 #  limitations under the License.
 
 
-
-
 module Passbook
+  # This is just a declaration of a Rails engine
+  #
+  # @private
   class Engine < Rails::Engine
   end
 end

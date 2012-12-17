@@ -15,7 +15,7 @@
 
 
 
-
+# @private
 class CreatePassbookRegistrations < ActiveRecord::Migration
   def change
     create_table :passbook_registrations do |t|

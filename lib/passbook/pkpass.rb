@@ -23,6 +23,7 @@ require 'zip/zip'
 require 'zip/zipfilesystem'
 
 module Passbook
+  # Pkpass is the class responsible for managing the contect of a pkpass and also signing the package
   class Pkpass
     attr_accessor :files, :translations, :json, :pass_type_id, :serial_number,  :config
 
@@ -48,6 +49,16 @@ module Passbook
       end
     end
 
+    # Add a file to your pkpass
+    #
+    # example:
+    #   pass.add_file "stripe.png", image_content
+    #
+    # == Parameters:
+    # filename::
+    #   A String for the name of the file. It can contain a folder, so it is really a relative path within the pkpass
+    # content::
+    #   Binary content for what will be inside that file
     def add_file filename, content
       self.files[filename] = content
     end
@@ -67,10 +78,12 @@ module Passbook
       self.compress_pass_file
     end
 
+    # @private
     def write_json
       self.files['pass.json'] = JSON.pretty_generate(self.json)
     end
 
+    # @private
     def write_translation_strings
       self.translations.each do |language, trans|
         self.files["#{language}.lproj/pass.strings"] ||= ""
@@ -81,6 +94,7 @@ module Passbook
       end
     end
 
+    # @private
     def generate_json_manifest
       manifest = {}
       self.files.each do |filename, content|
@@ -89,12 +103,14 @@ module Passbook
       self.files['manifest.json'] = JSON.pretty_generate(manifest)
     end
 
+    # @private
     def sign_manifest
       flag = OpenSSL::PKCS7::BINARY|OpenSSL::PKCS7::DETACHED
       signed = OpenSSL::PKCS7::sign(config['p12_certificate'].certificate, config['p12_certificate'].key, self.files['manifest.json'], [Config.instance.wwdr_certificate], flag)
       self.files['signature'] = signed.to_der.force_encoding('UTF-8')
     end
 
+    # @private
     def compress_pass_file
       stringio = Zip::ZipOutputStream::write_buffer do |z|
         self.files.each do |filename, content|
