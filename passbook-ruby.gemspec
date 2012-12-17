@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
   s.name = "passbook-ruby"
-  s.version = "0.0.6"
+  s.version = "0.1.0"
   s.authors = ["Andrei Dinin"]
-  s.date = %q[2012-09-20]
+  s.date = %q[2012-12-17]
   s.description = "Passbook pkpass creation and management for Ruby projects"
   s.summary = s.description
   s.email = 'andrei.dinin@xtremelabs.com'
