@@ -29,7 +29,7 @@ module Passbook
       def create_initializer_file
         template 'initializer.rb', File.join('config', 'initializers', "passbook_#{plural_name.singularize}.rb")
         template 'model.rb', File.join('app', 'models', "#{plural_name.singularize}.rb")
-        route "get '/v1/passes/#{plural_name.singularize}' => 'Passbook::passes#get_pkpass', :defaults => { :pass_type_id => '#{pass_type_id}' }"
+        route "get '/v1/passes/#{plural_name.singularize}' => 'Passbook::Passes#get_pkpass', :defaults => { :pass_type_id => '#{pass_type_id}' }"
         template 'migration.rb', File.join('db', 'migrate', "#{Time.now.strftime("%Y%m%d%H%M%S")}_create_#{plural_name}.rb")
         template 'pass.json', File.join('data', 'templates', pass_type_id, "pass.json")
         template 'icon.png', File.join('data', 'templates', pass_type_id, "icon.png")
