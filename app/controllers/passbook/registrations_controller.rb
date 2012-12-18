@@ -84,7 +84,8 @@ module Passbook
     def delete
       puts "Handling unregistration request..."
       puts authentication_token
-      if Passbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => params[:serial_number], :authentication_token => authentication_token).first
+      pass = Passbook.pass_type_id_to_class(params[:pass_type_id]).where(:serial_number => params[:serial_number], :authentication_token => authentication_token).first
+      if pass
         puts 'Pass and authentication token match.'
 
         # Validate that the device has previously registered
