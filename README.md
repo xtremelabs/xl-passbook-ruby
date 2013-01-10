@@ -74,7 +74,7 @@ and go to \passes\model_name on your iphone (make sure it is in debug mode and a
 Dwayne Forde, Cody Veal, Gregory Chow, Vincent Lee, Hussam Sheikh, Tanzeeb Khalili, Vincent Coste
 
 
-####Licence
+####License
 
 Except as otherwise noted, the Passbook-Ruby gem is licensed under the [Apache License, Version 2.0]
 
