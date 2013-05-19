@@ -40,6 +40,8 @@
 
 module Passbook
   class RegistrationsController < ApplicationController
+    skip_before_filter :verify_authenticity_token, :only => [:create, :delete]
+    
     def create
       puts "Handling registration request..."
       # validate that the request is authorized to deal with the pass referenced
