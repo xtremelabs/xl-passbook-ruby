@@ -15,6 +15,7 @@
 
 require "rails"
 require "rails/test_help"
+require "zip"
 
 require_relative '../lib/passbook-ruby'
 require_relative '../lib/passbook/config'
@@ -28,7 +29,7 @@ module Helpers
       zip_file_io.rewind
       file.write zip_file_io.sysread.force_encoding("UTF-8")
     end
-    Zip::ZipInputStream::open("test.zip")
+    Zip::InputStream::open("test.zip")
   end
 
   def file_from_zip zip_file_io, filename

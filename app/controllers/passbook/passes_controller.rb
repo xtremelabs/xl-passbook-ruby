@@ -28,7 +28,7 @@ module Passbook
 
     def get_pkpass pass=nil
       pass ||=Passbook.pass_type_id_to_class(params[:pass_type_id]).update_or_create params
-      render :pkpass => pass
+      render pkpass: pass
     end
   end
 end
