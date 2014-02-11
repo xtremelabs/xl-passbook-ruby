@@ -35,7 +35,7 @@ module Passbook
   #
   # Returns the string ID for the pass type, or nil if no match is found.
   def self.object_to_pass_type_id(obj)
-    Passbook.Config.instance.pass_config.each do |pass_type_id, config|
+    Passbook::Config.instance.pass_config.each do |pass_type_id, config|
       is_match = if obj.respond_to? :pass_type_id
                    obj.pass_type_id == pass_type_id
                  else
