@@ -29,10 +29,20 @@ module Passbook
     Passbook::Config.instance.pass_config[pass_type_id]['class'].constantize
   end
 
-  # @private
-  def self.class_name_to_pass_type_id class_name
-    Passbook::Config.instance.pass_config.each do |pass_type_id, config|
-      return pass_type_id if config['class']==class_name
+  # Determine the pass type the object represents.
+  #
+  # obj - Object to try to match a passport type for.
+  #
+  # Returns the string ID for the pass type, or nil if no match is found.
+  def self.object_to_pass_type_id(obj)
+    Passbook.Config.instance.pass_config.each do |pass_type_id, config|
+      is_match = if obj.respond_to? :pass_type_id
+                   obj.pass_type_id == pass_type_id
+                 else
+                   obj.class.to_s == config["class"]
+                 end
+
+      return pass_type_id if is_match
     end
   end
 
@@ -47,7 +57,7 @@ module Passbook
     Mime::Type.register 'application/vnd.apple.pkpass', :pkpass
 
     ActionController::Renderers.add :pkpass do |obj, options|
-      pkpass = Passbook::Pkpass.new Passbook.class_name_to_pass_type_id(obj.class.to_s), obj.serial_number
+      pkpass = Passbook::Pkpass.new Passbook.object_to_pass_type_id(obj), obj.serial_number
       obj.update_pass pkpass if obj.respond_to? :update_pass
       pkpass_io = pkpass.package
       response.headers["last-modified"] = obj.updated_at.strftime("%Y-%m-%d %H:%M:%S")
