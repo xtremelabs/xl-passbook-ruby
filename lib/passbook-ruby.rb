@@ -25,21 +25,21 @@ require "action_controller"
 
 module Passbook
   # @private
-  def self.pass_type_id_to_class pass_id
-    Passbook::Config.instance.pass_config[pass_id]['class'].constantize
+  def self.pass_type_id_to_class pass_type_id
+    Passbook::Config.instance.pass_config[pass_type_id]['class'].constantize
   end
 
   # Public: Determine if the given object matches the specified config.
   #
-  # obj         - Object to determine what config to use.
-  # pass_id     - The key that the config was found under, defining a pass
-  # pass_config - Config to match against.
+  # obj           - Object to determine what config to use.
+  # pass_type_id  - String ID of the pass defined in the initializer config.
+  # pass_config   - Config to match against.
   #
   # Returns true if the object represents the pass in the config.
-  def self.object_matches_pass_config(obj, pass_id, pass_config)
-    if obj.respond_to? :pass_id
+  def self.object_matches_pass_config(obj, pass_type_id, pass_config)
+    if obj.respond_to? :pass_type_id
       # Allow 1 class type to represent any pass (good for multiple pass templates)
-      obj.pass_id == pass_id
+      obj.pass_type_id == pass_type_id
     else
       # Fallback. Bind a class to a pass by type. This will only match the first
       # found in the case of multiple pass definitions. This exists for
@@ -50,7 +50,7 @@ module Passbook
 
   # Public: Determine what pass to use for the specified object.
   # Returns a string id for the pass configuration.
-  def self.find_pass_id_for(obj)
+  def self.find_pass_type_id_for(obj)
     Passbook::Config.instance.pass_config.each do |pass_id, pass_config|
       return pass_id if object_matches_pass_config obj, pass_id, pass_config
     end
@@ -69,7 +69,7 @@ module Passbook
     Mime::Type.register 'application/vnd.apple.pkpass', :pkpass
 
     ActionController::Renderers.add :pkpass do |obj, options|
-      pkpass = Passbook::Pkpass.new Passbook.find_pass_id_for(obj), obj.serial_number
+      pkpass = Passbook::Pkpass.new Passbook.find_pass_type_id_for(obj), obj.serial_number
       obj.update_pass pkpass if obj.respond_to? :update_pass
       pkpass_io = pkpass.package
       response.headers["last-modified"] = obj.updated_at.strftime("%Y-%m-%d %H:%M:%S")
