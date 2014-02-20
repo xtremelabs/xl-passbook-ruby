@@ -67,6 +67,38 @@ your password in config/initializers/passbook_#{model_name}.rb.
 and go to \passes\model_name on your iphone (make sure it is in debug mode and allows http connections)
 
 
+### Supporting One Object, Many Pass Templates
+If you wish to have an object that supports many pass templates, then your object
+must have #pass_type_id. That way when you attempt to render the object, the value
+of pass_type_id will be matched amongst your pass templates defined in your config.
+The matched template will be used.
+
+For example, say you have a pass type id and a cert from Apple. You want to use that
+but want to distribute passes with a number of looks. Define your templates with the
+certificate path and password, and the path to the template. Then have your object
+return the correct value for #pass_type_id.
+
+```
+# Use the same Apple Pass Type ID for all of our passes. 
+# Define custom looks.
+Passbook::Config.instance.add_pkpass do |passbook|
+  shared_pass_data = {
+    "cert_path"     => "path/to/desired/cert.p12",
+    "cert_password" => "password_for_cert"
+  }
+
+  passbook.pass_config["my_template_1"] = shared_pass_data.merge("template_path" => "path/to/desired/template1")
+  passbook.pass_config["my_template_2"] = shared_pass_data.merge("template_path" => "path/to/desired/template2")
+end
+```
+
+```
+# Render template 1 for special situations.
+my_object.pass_type_id = my_object.is_special? "my_template_1" : "my_template_2"
+render :pkpass, my_object
+```
+
+
 
 #### Check out [FAQs] wiki section if you get in trouble
 
