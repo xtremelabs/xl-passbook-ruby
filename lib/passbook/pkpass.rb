@@ -19,8 +19,8 @@
 require 'digest/sha1'
 require 'json'
 require 'openssl'
-require 'zip/zip'
-require 'zip/zipfilesystem'
+require 'zip'
+require 'zip/filesystem'
 
 module Passbook
   # Pkpass is the class responsible for managing the contect of a pkpass and also signing the package
